@@ -12,6 +12,7 @@ type Block struct {
 	Data      []byte
 	PreBlkHsh []byte
 	Hash      []byte
+	Counter   int64
 }
 
 func (b *Block) SetHash() {
@@ -22,7 +23,12 @@ func (b *Block) SetHash() {
 }
 
 func NewBlock(data string, preBlkHsh []byte) *Block {
-	block := &Block{time.Now().Unix(), []byte(data), preBlkHsh, []byte{}}
+	block := &Block{time.Now().Unix(), []byte(data), preBlkHsh, []byte{}, 0}
 	block.SetHash()
 	return block
+}
+
+//creates and returns genesis block
+func NewGenesisBlock() *Block {
+	return NewBlock("Genesis Block", []byte{})
 }

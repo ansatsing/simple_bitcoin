@@ -1,17 +1,22 @@
 package core
 
 type Blockchain struct {
-	blocks []*Block
+	Blocks []*Block
 }
 
 func (bc *Blockchain) AddBlock(data string) {
 	preBlk := bc.LastBlock()
 	newBlk := NewBlock(data, preBlk.Hash)
-	bc.blocks = append(bc.blocks, newBlk)
+	bc.Blocks = append(bc.Blocks, newBlk)
 }
 
 func (bc *Blockchain) LastBlock() *Block {
-	len := len(bc.blocks)
-	block := bc.blocks[len-1]
+	len := len(bc.Blocks)
+	block := bc.Blocks[len-1]
 	return block
+}
+
+//creates a Blockchain with a genesis block
+func NewBlockchain() *Blockchain {
+	return &Blockchain{[]*Block{NewGenesisBlock()}}
 }
